@@ -1,6 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../api/auth'
+import MessageBox from '../../components/MessageBox'
 import './LoginPage.css'
 
 function LoginPage() {
@@ -74,7 +75,7 @@ function LoginPage() {
             <input
               type="password"
               name="password"
-              placeholder="••••••••"
+              placeholder="********"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               autoComplete="current-password"
@@ -86,8 +87,22 @@ function LoginPage() {
             {loading ? 'Giriş yapılıyor...' : 'Giriş yap'}
           </button>
 
-          {error ? <div className="login-alert error">{error}</div> : null}
-          {success ? <div className="login-alert success">{success}</div> : null}
+          {error ? (
+            <MessageBox
+              title="Giriş başarısız"
+              message={error}
+              variant="error"
+              onClose={() => setError('')}
+            />
+          ) : null}
+          {success ? (
+            <MessageBox
+              title="Giriş başarılı"
+              message={success}
+              variant="success"
+              onClose={() => setSuccess('')}
+            />
+          ) : null}
 
           <div className="login-footer">
             <span>Destek mi lazım?</span>
@@ -97,7 +112,6 @@ function LoginPage() {
           </div>
         </form>
       </div>
-
     </div>
   )
 }
