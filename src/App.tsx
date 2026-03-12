@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import GelenTalepler from './pages/GelenTalepler'
 import Taleplerim from './pages/Taleplerim'
+import TalepOlustur from './pages/TalepOlustur'
 import { getToken } from './services/authService'
 
 type RequireAuthProps = {
@@ -30,6 +31,14 @@ function App() {
         element={
           <RequireAuth>
             <Dashboard />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/talep-olustur"
+        element={
+          <RequireAuth>
+            <TalepOlustur />
           </RequireAuth>
         }
       />

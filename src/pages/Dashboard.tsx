@@ -39,6 +39,11 @@ function Dashboard() {
               <p>Öncelikli ekranlara tek tıkla gidin.</p>
             </div>
             <div className="card-grid">
+              <Link to="/talep-olustur" className="card-link">
+                <h3>Talep Oluştur</h3>
+                <p>Yeni bir iş akışı başlatın ve süreci başlatın.</p>
+                <span className="card-cta">Talep başlat</span>
+              </Link>
               <Link to="/gelen" className="card-link">
                 <h3>Gelen Talepler</h3>
                 <p>Bekleyen görevleri görüntüleyin ve aksiyon alın.</p>

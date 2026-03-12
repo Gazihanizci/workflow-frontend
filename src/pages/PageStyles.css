@@ -107,7 +107,8 @@
   font-weight: 600;
 }
 
-.form input {
+.form input,
+.form select {
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);

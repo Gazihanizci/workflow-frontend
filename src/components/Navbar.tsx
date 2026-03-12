@@ -20,6 +20,9 @@ function Navbar() {
         <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'active' : '')}>
           Dashboard
         </NavLink>
+        <NavLink to="/talep-olustur" className={({ isActive }) => (isActive ? 'active' : '')}>
+          Talep Oluştur
+        </NavLink>
         <NavLink to="/gelen" className={({ isActive }) => (isActive ? 'active' : '')}>
           Gelen Talepler
         </NavLink>
