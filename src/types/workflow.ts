@@ -1,14 +1,10 @@
 ﻿export type WorkflowTalep = {
-  id?: number
-  isTuruAdi?: string
-  durum?: string
-  redNedeni?: string | null
-  olusturmaTarihi?: string
-  surecId?: number
-  surecDurum?: string
-  taskId?: number
-  taskDurum?: string
-  redYorum?: string | null
+  surecId: number
+  surecDurum: string
+  taskId: number
+  taskDurum: string
+  isTuruAdi: string
+  yorum?: string | null
 }
 
 export type Task = {
@@ -22,4 +18,5 @@ export type Task = {
   taskId?: number
   taskDurum?: string
   redYorum?: string | null
+  yorum?: string | null
 }

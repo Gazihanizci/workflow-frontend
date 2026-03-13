@@ -1,9 +1,35 @@
-﻿import { NavLink, useNavigate } from 'react-router-dom'
+﻿import { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { clearToken } from '../services/authService'
+import { getCurrentUser, type CurrentUser } from '../api/usersApi'
 import './Navbar.css'
 
 function Navbar() {
   const navigate = useNavigate()
+  const [user, setUser] = useState<CurrentUser | null>(null)
+
+  useEffect(() => {
+    let active = true
+
+    const loadUser = async () => {
+      try {
+        const data = await getCurrentUser()
+        if (active) {
+          setUser(data)
+        }
+      } catch {
+        if (active) {
+          setUser(null)
+        }
+      }
+    }
+
+    loadUser()
+
+    return () => {
+      active = false
+    }
+  }, [])
 
   const handleLogout = () => {
     clearToken()
@@ -30,9 +56,22 @@ function Navbar() {
           Taleplerim
         </NavLink>
       </div>
-      <button type="button" className="ghost-button" onClick={handleLogout}>
-        Çıkış yap
-      </button>
+      <div className="navbar-user">
+        {user ? (
+          <div className="user-meta">
+            <span className="user-name">{user.adSoyad}</span>
+            <span className="user-role">{user.rol} • {user.birim}</span>
+          </div>
+        ) : (
+          <div className="user-meta">
+            <span className="user-name">Kullanıcı</span>
+            <span className="user-role">Yükleniyor...</span>
+          </div>
+        )}
+        <button type="button" className="ghost-button" onClick={handleLogout}>
+          Çıkış yap
+        </button>
+      </div>
     </nav>
   )
 }

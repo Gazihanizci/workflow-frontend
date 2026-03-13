@@ -5,28 +5,6 @@ import { getTaleplerim } from '../api/workflowApi'
 import type { WorkflowTalep } from '../types/workflow'
 import './PageStyles.css'
 
-function getValue(row: WorkflowTalep, keys: Array<keyof WorkflowTalep>, fallback = '-') {
-  for (const key of keys) {
-    const value = row[key]
-    if (value !== undefined && value !== null && String(value).trim().length > 0) {
-      return String(value)
-    }
-  }
-  return fallback
-}
-
-function getStatus(row: WorkflowTalep) {
-  return getValue(row, ['surecDurum', 'durum', 'taskDurum'])
-}
-
-function getTaskStatus(row: WorkflowTalep) {
-  return getValue(row, ['taskDurum', 'durum'])
-}
-
-function getRejectReason(row: WorkflowTalep) {
-  return getValue(row, ['redYorum', 'redNedeni'])
-}
-
 function isRejected(status: string) {
   return status.toUpperCase().includes('RED')
 }
@@ -56,30 +34,28 @@ function Taleplerim() {
     {
       key: 'surecId',
       header: 'Süreç ID',
-      render: (row: WorkflowTalep) => getValue(row, ['surecId', 'id']),
+      render: (row: WorkflowTalep) => row.surecId,
+    },
+    {
+      key: 'isTuruAdi',
+      header: 'İş Türü',
+      render: (row: WorkflowTalep) => row.isTuruAdi,
     },
     {
       key: 'surecDurum',
       header: 'Süreç Durum',
-      render: (row: WorkflowTalep) => getStatus(row),
-    },
-    {
-      key: 'taskId',
-      header: 'Task ID',
-      render: (row: WorkflowTalep) => getValue(row, ['taskId']),
+      render: (row: WorkflowTalep) => row.surecDurum,
     },
     {
       key: 'taskDurum',
       header: 'Task Durum',
-      render: (row: WorkflowTalep) => getTaskStatus(row),
+      render: (row: WorkflowTalep) => row.taskDurum,
     },
     {
-      key: 'redNedeni',
+      key: 'yorum',
       header: 'Red Nedeni',
-      render: (row: WorkflowTalep) => {
-        const status = getStatus(row)
-        return isRejected(status) ? getRejectReason(row) : '-'
-      },
+      render: (row: WorkflowTalep) =>
+        isRejected(row.taskDurum) || isRejected(row.surecDurum) ? row.yorum ?? '-' : '-',
     },
   ]
 
