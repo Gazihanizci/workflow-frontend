@@ -1,35 +1,29 @@
-﻿import { http } from './http'
-
-const WORKFLOW_BASE = '/api/workflow'
+import { http } from './http'
 
 export function getTaleplerim() {
-  return http(`${WORKFLOW_BASE}/taleplerim`)
+  return http('/api/talepler/benim')
 }
 
 export function getGelenTalepler() {
-  return http(`${WORKFLOW_BASE}/gelen`)
+  return http('/api/talepler/gelen')
 }
 
-export function baslatWorkflow(isTuruId: number) {
-  const params = new URLSearchParams({ isTuruId: String(isTuruId) })
-  return http(`${WORKFLOW_BASE}/baslat?${params.toString()}`, {
+export function baslatWorkflow(isTuruId: number, aciklama: string) {
+  return http('/api/workflow/baslat', {
     method: 'POST',
+    body: JSON.stringify({ isTuruId, aciklama }),
   })
 }
 
 export function onaylaTask(taskId: number) {
-  const params = new URLSearchParams({ taskId: String(taskId) })
-  return http(`${WORKFLOW_BASE}/onayla?${params.toString()}`, {
+  return http(`/api/tasks/${taskId}/onayla`, {
     method: 'POST',
   })
 }
 
 export function reddetTask(taskId: number, yorum: string) {
-  const params = new URLSearchParams({
-    taskId: String(taskId),
-    yorum,
-  })
-  return http(`${WORKFLOW_BASE}/reddet?${params.toString()}`, {
+  return http(`/api/tasks/${taskId}/reddet`, {
     method: 'POST',
+    body: JSON.stringify({ yorum }),
   })
 }

@@ -11,6 +11,9 @@ export type Task = {
   id?: number
   isTuruAdi?: string
   durum?: string
+  baslatanAdSoyad?: string
+  birimAdi?: string
+  aciklama?: string
   redNedeni?: string | null
   olusturmaTarihi?: string
   surecId?: number

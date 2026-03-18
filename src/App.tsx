@@ -1,5 +1,5 @@
 ﻿import type { ReactNode } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -23,6 +23,14 @@ function RequireAuth({ children }: RequireAuthProps) {
 }
 
 function App() {
+  const location = useLocation()
+  const token = getToken()
+  const isLoginRoute = location.pathname === '/login'
+
+  if (!token && !isLoginRoute) {
+    return <Navigate to="/login" replace />
+  }
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

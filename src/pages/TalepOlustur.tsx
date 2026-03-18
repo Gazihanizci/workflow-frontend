@@ -7,6 +7,7 @@ import './PageStyles.css'
 function TalepOlustur() {
   const [items, setItems] = useState<IsAkisi[]>([])
   const [selectedId, setSelectedId] = useState<number>(0)
+  const [aciklama, setAciklama] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -38,8 +39,9 @@ function TalepOlustur() {
 
     try {
       setLoading(true)
-      await baslatWorkflow(selectedId)
+      await baslatWorkflow(selectedId, aciklama.trim())
       setMessage('Talep başarıyla oluşturuldu.')
+      setAciklama('')
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Request failed'
       alert(msg)
@@ -72,6 +74,15 @@ function TalepOlustur() {
                   </option>
                 ))}
               </select>
+            </label>
+            <label>
+              Açıklama
+              <textarea
+                value={aciklama}
+                onChange={(event) => setAciklama(event.target.value)}
+                placeholder="Kısa bir açıklama yazın"
+                rows={4}
+              />
             </label>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>

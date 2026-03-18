@@ -74,19 +74,29 @@ function GelenTalepler() {
   const columns = useMemo(
     () => [
       {
-        key: 'taskId',
-        header: 'Task ID',
-        render: (row: Task) => getValue(row, ['taskId', 'id']),
-      },
-      {
         key: 'isTuruAdi',
         header: 'Talep',
-        render: (row: Task) => getValue(row, ['isTuruAdi', 'surecId']),
+        render: (row: Task) => getValue(row, ['isTuruAdi']),
+      },
+      {
+        key: 'aciklama',
+        header: 'Açıklama',
+        render: (row: Task) => getValue(row, ['birimAdi']),
       },
       {
         key: 'durum',
         header: 'Durum',
         render: (row: Task) => getStatus(row),
+      },
+      {
+        key: 'baslatanAdSoyad',
+        header: 'Başlatan',
+        render: (row: Task) => getValue(row, ['aciklama']),
+      },
+      {
+        key: 'birimAdi',
+        header: 'Birim',
+        render: (row: Task) => getValue(row, ['baslatanAdSoyad']),
       },
       {
         key: 'actions',
