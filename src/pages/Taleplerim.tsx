@@ -13,6 +13,14 @@ function Taleplerim() {
   const [items, setItems] = useState<WorkflowTalep[]>([])
   const [loading, setLoading] = useState(false)
 
+  const totalCount = items.length
+  const rejectedCount = items.filter((item) =>
+    isRejected(item.taskDurum) || isRejected(item.surecDurum)
+  ).length
+  const pendingCount = items.filter((item) =>
+    `${item.taskDurum} ${item.surecDurum}`.toUpperCase().includes('BEK')
+  ).length
+
   const loadItems = async () => {
     setLoading(true)
     try {
@@ -71,6 +79,21 @@ function Taleplerim() {
           <button type="button" onClick={loadItems}>
             Yenile
           </button>
+        </div>
+
+        <div className="summary-cards">
+          <div className="summary-card">
+            <span>Toplam Talep</span>
+            <strong>{totalCount}</strong>
+          </div>
+          <div className="summary-card">
+            <span>Bekleyen</span>
+            <strong>{pendingCount}</strong>
+          </div>
+          <div className="summary-card">
+            <span>Reddedilen</span>
+            <strong>{rejectedCount}</strong>
+          </div>
         </div>
 
         {loading ? <p>Yükleniyor...</p> : null}

@@ -54,47 +54,65 @@ function TalepOlustur() {
     <div className="page-shell">
       <Navbar />
       <div className="page-content">
-        <section className="panel">
+        <section className="panel panel-stacked">
           <div className="panel-header">
             <h2>Talep Oluştur</h2>
-            <p>Başlatmak istediğiniz iş akışını seçin.</p>
+            <p>Başlatmak istediğiniz iş akışını seçin ve açıklamayı ekleyin.</p>
           </div>
 
-          <div className="form" style={{ maxWidth: 520 }}>
-            <label>
-              İş Akışı
-              <select
-                value={selectedId}
-                onChange={(event) => setSelectedId(Number(event.target.value))}
-                disabled={loading || items.length === 0}
-              >
-                {items.map((item) => (
-                  <option key={item.isTuruId} value={item.isTuruId}>
-                    {item.isAkisiAdi}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Açıklama
-              <textarea
-                value={aciklama}
-                onChange={(event) => setAciklama(event.target.value)}
-                placeholder="Kısa bir açıklama yazın"
-                rows={4}
-              />
-            </label>
+          <div className="form-layout">
+            <div className="form card-surface">
+              <label>
+                İş Akışı
+                <select
+                  value={selectedId}
+                  onChange={(event) => setSelectedId(Number(event.target.value))}
+                  disabled={loading || items.length === 0}
+                >
+                  {items.map((item) => (
+                    <option key={item.isTuruId} value={item.isTuruId}>
+                      {item.isAkisiAdi}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="textarea-field">
+                Açıklama
+                <textarea
+                  value={aciklama}
+                  onChange={(event) => setAciklama(event.target.value)}
+                  placeholder="Örn: Satın alma için acil onay gerekiyor."
+                  rows={6}
+                />
+                <span className="field-hint">
+                  Kısa ve net bir açıklama, onay süresini hızlandırır.
+                </span>
+              </label>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <button type="button" onClick={handleSubmit} disabled={loading || !selectedId}>
-                {loading ? 'Gönderiliyor...' : 'Talep Oluştur'}
-              </button>
-              <button type="button" className="ghost-button" onClick={loadIsAkislari}>
-                Listeyi Yenile
-              </button>
+              <div className="form-actions">
+                <button type="button" onClick={handleSubmit} disabled={loading || !selectedId}>
+                  {loading ? 'Gönderiliyor...' : 'Talep Oluştur'}
+                </button>
+                <button type="button" className="ghost-button" onClick={loadIsAkislari}>
+                  Listeyi Yenile
+                </button>
+              </div>
+
+              {message ? <p className="success">{message}</p> : null}
             </div>
 
-            {message ? <p className="success">{message}</p> : null}
+            <aside className="info-card">
+              <h3>İpucu</h3>
+              <p>
+                Açıklamada işin kapsamını, zaman planını ve varsa ek gereksinimleri
+                yazmanız onay sürecini hızlandırır.
+              </p>
+              <ul className="info-list">
+                <li>Öncelik ve teslim tarihi</li>
+                <li>İlgili birim veya kişi</li>
+                <li>Gerekirse dosya/bağlantı notu</li>
+              </ul>
+            </aside>
           </div>
         </section>
       </div>
